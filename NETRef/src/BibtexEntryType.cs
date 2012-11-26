@@ -182,7 +182,7 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
                 };
             }
 
-            public string[] getRequiredFieldsForCustomization() {
+            public override string[] getRequiredFieldsForCustomization() {
                 return new string[] {"author/editor", "title", "chapter/pages", "year", "publisher"};
             }
 
@@ -234,7 +234,7 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
                 };
             }
 
-            public string[] getRequiredFieldsForCustomization()
+            public override string[] getRequiredFieldsForCustomization()
             {
                 return new string[]
                 {
@@ -762,7 +762,7 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
                 };
             }
 
-            public string[] getRequiredFieldsForCustomization() {
+            public override string[] getRequiredFieldsForCustomization() {
                 return new string[] {"title", "organization/institution"};
             }
 
@@ -908,7 +908,7 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
 
     public abstract string[] getRequiredFields();
 
-    public string[] getPrimaryOptionalFields() {
+    public virtual string[] getPrimaryOptionalFields() {
         return new string[0];
     }
 
@@ -1050,7 +1050,7 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
      * dialog - that is, thie either-or fields together and separated by slashes.
      * @return Array of the required fields in a form appropriate for the entry customization dialog.
      */
-    public string[] getRequiredFieldsForCustomization() {
+    public virtual string[] getRequiredFieldsForCustomization() {
         return getRequiredFields();
     }
 }

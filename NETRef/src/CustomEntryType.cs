@@ -93,11 +93,11 @@ public class CustomEntryType : BibtexEntryType {
 	return req;
     }
 
-    public string[] getPrimaryOptionalFields() {
+    public override string[] getPrimaryOptionalFields() {
         return priOpt;
     }
 
-    public string[] getRequiredFieldsForCustomization() {
+    public override string[] getRequiredFieldsForCustomization() {
         return getRequiredFieldsString().Split(';');
     }
 

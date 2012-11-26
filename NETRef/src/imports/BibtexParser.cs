@@ -791,7 +791,6 @@ public class BibtexParser {
 	}
 
 	private class NoLabelException : Exception {
-		private static readonly long serialVersionUID = -8810027493651482203L;
 	}
 
 	private StringBuilder parseBracketedText() {

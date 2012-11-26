@@ -48,7 +48,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
         }
 
         // TODO: number vs issue?
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "editor", "series", "volume", "number",
 				 "eid", "issue", "date", "month", "year", "pages", "note", "issn",
 				 "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
@@ -84,7 +84,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"editor", "subtitle", "titleaddon", "maintitle", "mainsubtitle",
 				 "maintitleaddon", "volume", "edition", "publisher", "isbn", "chapter", "pages",
 				 "pagetotal", "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
@@ -120,7 +120,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "eprinttype", "url", "urldate"};
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"bookauthor", "editor", "subtitle", "titleaddon", "maintitle",
 				 "mainsubtitle", "maintitleaddon", "booksubtitle", "booktitleaddon", "volume",
 				 "edition", "publisher", "isbn", "chapter", "pages", "doi", "eprint", "eprintclass",
@@ -151,7 +151,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 	    return BibLatexEntryTypes.INBOOK.Instance.getOptionalFields();
         }
 
-        public new string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
 	    return BibLatexEntryTypes.INBOOK.Instance.getPrimaryOptionalFields();
         }
 
@@ -179,7 +179,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.INBOOK.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.INBOOK.Instance.getPrimaryOptionalFields();
         }
 
@@ -208,7 +208,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "howpublished", "chapter", "pages", "doi", "eprint",
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -241,7 +241,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "eprinttype", "url", "urldate"};
 	}
      
-	public string[] getPrimaryOptionalFields() {
+	public override string[] getPrimaryOptionalFields() {
 	    return new string[] {"translator", "subtitle", "titleaddon", "maintitle",
 				 "mainsubtitle", "maintitleaddon", "volume",
 				 "edition", "publisher", "isbn", "chapter", "pages", "doi", "eprint", "eprintclass",
@@ -275,7 +275,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "eprint", "eprintclass", "eprinttype", "url", "urldate"};
 	}
      
-	public string[] getPrimaryOptionalFields() {
+	public override string[] getPrimaryOptionalFields() {
 	    return new string[] {"translator", "subtitle", "titleaddon", "maintitle",
 				 "mainsubtitle", "maintitleaddon", "booksubtitle", "booktitleaddon", "volume",
 				 "edition", "publisher", "isbn", "chapter", "pages", "doi", "eprint", "eprintclass",
@@ -306,7 +306,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.INCOLLECTION.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
 	    return BibLatexEntryTypes.INCOLLECTION.Instance.getPrimaryOptionalFields();
         }
      
@@ -335,7 +335,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "pages", "pagetotal", "addendum", "pubstate", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "edition", "publisher", "isbn", "chapter",
 				 "pages", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
@@ -364,7 +364,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "version", "note", "organization", "location", "date", "month", "year", "addendum",
 				 "pubstate", "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "howpublished", "location", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
@@ -391,7 +391,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return new string[] {"subtitle", "titleaddon", "language", "version", "note",
 				 "organization", "date", "month", "year", "addendum", "pubstate", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "note", "organization", "urldate"};
         }
         public override string describeRequiredFields() {
@@ -418,7 +418,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "date", "month", "year", "addendum", "pubstate", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"holder", "subtitle", "titleaddon", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
@@ -447,7 +447,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "note", "issn", "addendum", "pubstate", "doi", "eprint", "eprintclass", "eprinttype", "url",
 				 "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "issuetitle", "issuesubtitle", "issn", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
@@ -475,7 +475,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.ARTICLE.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.ARTICLE.Instance.getPrimaryOptionalFields();
         }
      
@@ -505,7 +505,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "isbn", "chapter", "pages", "pagetotal", "addendum", "pubstate", "doi", "eprint",
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "maintitle", "mainsubtitle",
 				 "maintitleaddon", "eventtitle", "volume", "publisher", "isbn", "chapter", "pages",
 				 "pagetotal", "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
@@ -536,7 +536,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "publisher", "location", "month", "isbn", "chapter", "pages", "addendum",
 				 "pubstate", "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "maintitle", "mainsubtitle",
 				 "maintitleaddon", "booksubtitle", "booktitleaddon", "eventtitle", "volume",
 				 "publisher", "isbn", "chapter", "pages",
@@ -566,7 +566,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 	    return BibLatexEntryTypes.COLLECTION.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.COLLECTION.Instance.getPrimaryOptionalFields();
         }
      
@@ -594,7 +594,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.INCOLLECTION.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.INCOLLECTION.Instance.getPrimaryOptionalFields();
         }
      
@@ -622,7 +622,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "location", "month", "isrn", "chapter", "pages", "pagetotal", "addendum", "pubstate", "doi",
 				 "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "number", "isrn", "chapter", "pages", "pagetotal", "doi",
 				 "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -669,7 +669,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "xref"};*/
         }
 	// These are just appr. the first half of the above fields:
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
 	    return null;
             /*return new string[] {"abstract", "addendum", "afterword", "annotation", "annotator", "author", "authortype",
 				 "bookauthor", "bookpagination", "booksubtitle", "booktitle", "booktitleaddon",
@@ -705,7 +705,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "chapter", "pages", "pagetotal", "addendum", "pubstate", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "chapter", "pages", "pagetotal", "doi", "eprint",
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -732,7 +732,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return new string[] {"subtitle", "titleaddon", "language", "howpublished", "note",
 				 "location", "date", "month", "year", "addendum", "pubstate", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "howpublished", "pubstate", "url", "urldate"};
         }
         public override string describeRequiredFields() {
@@ -761,7 +761,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.INPROCEEDINGS.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.INPROCEEDINGS.Instance.getPrimaryOptionalFields();
         }
      
@@ -789,7 +789,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.ONLINE.Instance.getOptionalFields();
         }
 
-        public new string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.ONLINE.Instance.getPrimaryOptionalFields();
         }
      
@@ -818,7 +818,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "chapter", "pages", "pagetotal", "addendum", "pubstate", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "type", "chapter", "pages", "pagetotal", "doi", "eprint",
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -847,7 +847,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "chapter", "pages", "pagetotal", "addendum", "pubstate", "doi", "eprint", "eprintclass",
 				 "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "type", "chapter", "pages", "pagetotal", "doi", "eprint",
 				 "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -876,7 +876,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
 				 "location", "month", "isrn", "chapter", "pages", "pagetotal", "addendum", "pubstate",
 				 "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {"subtitle", "titleaddon", "type", "number", "isrn", "chapter", "pages", "pagetotal",
 				 "doi", "eprint", "eprintclass", "eprinttype", "url", "urldate"};
         }
@@ -904,7 +904,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
             return BibLatexEntryTypes.ONLINE.Instance.getOptionalFields();
         }
 
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return BibLatexEntryTypes.ONLINE.Instance.getPrimaryOptionalFields();
         }
      
@@ -928,7 +928,7 @@ namespace net.sf.jabref.BibLatexEntryTypes {
         public override string[] getOptionalFields() {
             return new string[] {};
         }
-        public string[] getPrimaryOptionalFields() {
+        public override string[] getPrimaryOptionalFields() {
             return new string[] {};
         }
         public override string describeRequiredFields() {

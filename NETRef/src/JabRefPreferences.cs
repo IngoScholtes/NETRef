@@ -336,7 +336,7 @@ public class JabRefPreferences {
         WRAPPED_USERNAME = "["+get("defaultOwner")+"]";
         MARKING_WITH_NUMBER_PATTERN = "\\["+get("defaultOwner")+":(\\d+)\\]";
 
-        string defaultExpression = "**/.*[bibtexkey].*\\\\.[extension]";
+        //string defaultExpression = "**/.*[bibtexkey].*\\\\.[extension]";
         /*defaults.Add(DEFAULT_REG_EXP_SEARCH_EXPRESSION_KEY, defaultExpression);
         defaults.Add(REG_EXP_SEARCH_EXPRESSION_KEY, defaultExpression);
         defaults.Add(USE_REG_EXP_SEARCH_KEY, Boolean.FALSE);

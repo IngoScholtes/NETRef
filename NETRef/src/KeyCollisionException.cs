@@ -28,8 +28,6 @@ namespace net.sf.jabref {
 
 public class KeyCollisionException : Exception
 {
-	private static readonly long serialVersionUID = 2204443857743056853L;
-
 	public KeyCollisionException() : base()
     {
     }

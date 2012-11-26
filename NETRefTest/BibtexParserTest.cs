@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using net.sf.jabref;
 using net.sf.jabref.imports;
 using System.IO;
+using System.Diagnostics;
 
 namespace NETRefTest
 {
@@ -15,7 +16,12 @@ namespace NETRefTest
         {
             var parser = new BibtexParser(new StreamReader(@"../../bib/cvgip.bib"));
             var result = parser.parse();
-            
+            var db = result.getDatabase();
+
+            foreach (var entry in db.getEntries())
+            {
+                Debug.WriteLine(entry.toString());
+            }
         }
     }
 }
