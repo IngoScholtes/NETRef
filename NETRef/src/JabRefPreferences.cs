@@ -14,6 +14,7 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 namespace net.sf.jabref {
@@ -58,9 +59,11 @@ public class JabRefPreferences {
 
     // The constructor is made private to enforce this as a singleton class:
     private JabRefPreferences() {        
-        /*prefs = Preferences.userNodeForPackage(JabRefPreferences.class);
-        
-        defaults.Add("useDefaultLookAndFeel", Boolean.TRUE);
+        //prefs = Preferences.userNodeForPackage(JabRefPreferences.class);
+
+        prefs = new Dictionary<string, object>();
+
+        /*defaults.Add("useDefaultLookAndFeel", Boolean.TRUE);
         defaults.Add("lyxpipe", System.getProperty("user.home")+Stream.separator+".lyx/lyxpipe");
         defaults.Add("vim", "vim");
         defaults.Add("vimServer", "vim");
@@ -329,9 +332,9 @@ public class JabRefPreferences {
         restoreKeyBindings();
 
         //defaults.Add("oooWarning", Boolean.TRUE);
-        updateSpecialFieldHandling();
+        updateSpecialFieldHandling();*/
         WRAPPED_USERNAME = "["+get("defaultOwner")+"]";
-        MARKING_WITH_NUMBER_PATTERN = "\\["+get("defaultOwner")+":(\\d+)\\]";*/
+        MARKING_WITH_NUMBER_PATTERN = "\\["+get("defaultOwner")+":(\\d+)\\]";
 
         string defaultExpression = "**/.*[bibtexkey].*\\\\.[extension]";
         /*defaults.Add(DEFAULT_REG_EXP_SEARCH_EXPRESSION_KEY, defaultExpression);
@@ -380,7 +383,7 @@ public class JabRefPreferences {
     }
 
     public string get(string key) {
-        return (string)(hasKey(key) ? prefs[key] : defaults[key]);
+        return (string)(hasKey(key) ? prefs[key] : defaults.ContainsKey(key) ? defaults[key] : string.Empty);
     }
 
     public string get(string key, string def)
@@ -390,19 +393,21 @@ public class JabRefPreferences {
 
     public bool getBoolean(string key)
     {
-        return (bool)(hasKey(key) ? prefs[key] : defaults[key]);
+        //Debug.WriteLine("getBoolean " + key);
+        return (bool)(hasKey(key) ? prefs[key] : defaults.ContainsKey(key) ? defaults[key] : false);
     }
     
     public double getDouble(string key) {
-        return (double)(hasKey(key) ? prefs[key] : defaults[key]);
+        //Debug.WriteLine("getDouble " + key);
+        return (double)(hasKey(key) ? prefs[key] : defaults.ContainsKey(key) ? defaults[key] : 0.0);
     }
 
     public int getInt(string key) {
-        return (int)(hasKey(key) ? prefs[key] : defaults[key]);
+        return (int)(hasKey(key) ? prefs[key] : defaults.ContainsKey(key) ? defaults[key] : 0);
     }
 
     public byte[] getByteArray(string key) {
-        return (byte[])(hasKey(key) ? prefs[key] : defaults[key]);
+        return (byte[])(hasKey(key) ? prefs[key] : defaults.ContainsKey(key) ? defaults[key] : new byte[0]);
     }
         
     public void put(string key, object value) {

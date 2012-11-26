@@ -178,7 +178,7 @@ public class BibtexEntry
      * Returns the contents of the given field, or null if it is not set.
      */
     public string getField(string name) {
-        return _fields[name];
+        return _fields.ContainsKey(name) ? _fields[name] : null;
     }
 
     public string getCiteKey() {

@@ -28,7 +28,7 @@ namespace net.sf.jabref {
  */
 public class Util {
 
-    private readonly static object _lock;
+    private readonly static object _lock = new object();
 
 	// TODO: readonly static NumberFormat idFormat;
 

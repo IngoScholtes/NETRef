@@ -1006,7 +1006,8 @@ public abstract class BibtexEntryType : IComparable<BibtexEntryType>
      */
     public static BibtexEntryType getType(string name) {
 	//Util.pr("'"+name+"'");
-	object o = ALL_TYPES[(name.ToLower())];
+        var key = name.ToLower();
+	object o = ALL_TYPES.ContainsKey(key) ? ALL_TYPES[key] : null;
 	if (o == null)
 	    return null;
 	else return (BibtexEntryType)o;

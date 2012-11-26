@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETRef", "NETRef\NETRef.csproj", "{61C6CE12-EA97-454F-9021-58671F12C6AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETRefTest", "NETRefTest\NETRefTest.csproj", "{0DEAD5FC-853A-458F-BF60-C44131880ADE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{61C6CE12-EA97-454F-9021-58671F12C6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61C6CE12-EA97-454F-9021-58671F12C6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61C6CE12-EA97-454F-9021-58671F12C6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -42,7 +42,7 @@ using System.Text.RegularExpressions;
 namespace net.sf.jabref {
 
 public class BibtexDatabase {
-    private readonly object _lock;
+    private readonly object _lock = new object();
 
     Dictionary<string, BibtexEntry> _entries = new Dictionary<string, BibtexEntry>();
 
@@ -93,7 +93,7 @@ public class BibtexDatabase {
     public BibtexEntry getEntryById(string id)
     {
         lock (_lock) {
-            return _entries[id];
+            return _entries.ContainsKey(id) ? _entries[id] : null;
         }
     }
 

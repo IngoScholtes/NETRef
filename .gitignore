@@ -2,5 +2,7 @@
 *.user
 *.suo
 *.ncb
-NETRef/bin/
-NETRef/obj/
+*.dll
+*/bin/
+*/obj/
+TestResults/
