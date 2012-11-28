@@ -20,7 +20,7 @@ namespace NETRefTest
 
             foreach (var entry in db.getEntries())
             {
-                Debug.WriteLine(entry.toString());
+                Debug.WriteLine(entry.ToString());
             }
         }
     }

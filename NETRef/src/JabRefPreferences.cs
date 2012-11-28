@@ -67,10 +67,10 @@ public class JabRefPreferences {
         defaults.Add("lyxpipe", System.getProperty("user.home")+Stream.separator+".lyx/lyxpipe");
         defaults.Add("vim", "vim");
         defaults.Add("vimServer", "vim");
-        defaults.Add("posX", Integer.valueOf(0));
-        defaults.Add("posY", Integer.valueOf(0));
-        defaults.Add("sizeX", Integer.valueOf(840));
-        defaults.Add("sizeY", Integer.valueOf(680));
+        defaults.Add("posX", int.valueOf(0));
+        defaults.Add("posY", int.valueOf(0));
+        defaults.Add("sizeX", int.valueOf(840));
+        defaults.Add("sizeY", int.valueOf(680));
         defaults.Add("windowMaximised", Boolean.FALSE);
         defaults.Add("previewPanelHeight", 200);
         defaults.Add("entryEditorHeight", 400);
@@ -99,15 +99,15 @@ public class JabRefPreferences {
         defaults.Add("importWorkingDirectory", System.getProperty("user.home"));
         defaults.Add("fileWorkingDirectory", System.getProperty("user.home"));
         defaults.Add("autoOpenForm", Boolean.TRUE);
-        defaults.Add("entryTypeFormHeightFactor", Integer.valueOf(1));
-        defaults.Add("entryTypeFormWidth", Integer.valueOf(1));
+        defaults.Add("entryTypeFormHeightFactor", int.valueOf(1));
+        defaults.Add("entryTypeFormWidth", int.valueOf(1));
         defaults.Add("backup", Boolean.TRUE);
         defaults.Add("openLastEdited", Boolean.TRUE);
         defaults.Add("lastEdited", null);
-        defaults.Add("stringsPosX", Integer.valueOf(0));
-        defaults.Add("stringsPosY", Integer.valueOf(0));
-        defaults.Add("stringsSizeX", Integer.valueOf(600));
-        defaults.Add("stringsSizeY", Integer.valueOf(400));
+        defaults.Add("stringsPosX", int.valueOf(0));
+        defaults.Add("stringsPosY", int.valueOf(0));
+        defaults.Add("stringsSizeX", int.valueOf(600));
+        defaults.Add("stringsSizeY", int.valueOf(400));
         defaults.Add("defaultShowSource", Boolean.FALSE);
         defaults.Add("showSource", Boolean.TRUE);
         defaults.Add("defaultAutoSort", Boolean.FALSE);
@@ -126,8 +126,8 @@ public class JabRefPreferences {
         defaults.Add("selectS", Boolean.FALSE);
         defaults.Add("regExpSearch", Boolean.TRUE);
         defaults.Add("highLightWords", Boolean.TRUE);
-        defaults.Add("searchPanePosX", Integer.valueOf(0));
-        defaults.Add("searchPanePosY", Integer.valueOf(0));
+        defaults.Add("searchPanePosX", int.valueOf(0));
+        defaults.Add("searchPanePosY", int.valueOf(0));
         defaults.Add("autoComplete", Boolean.TRUE);
         defaults.Add("autoCompleteFields", "author;editor;title;journal;publisher;keywords;crossref");
         defaults.Add("autoCompFF", Boolean.FALSE);
@@ -150,7 +150,7 @@ public class JabRefPreferences {
         defaults.Add("highlightGroupsMatchingAll", Boolean.FALSE);
         defaults.Add("searchPanelVisible", Boolean.FALSE);
         defaults.Add("defaultEncoding", System.getProperty("file.encoding"));
-        defaults.Add("groupsVisibleRows", Integer.valueOf(8));
+        defaults.Add("groupsVisibleRows", int.valueOf(8));
         defaults.Add("defaultOwner", System.getProperty("user.name"));
         defaults.Add("preserveFieldFormatting", Boolean.FALSE);
         defaults.Add("memoryStickMode", Boolean.FALSE);
@@ -164,11 +164,11 @@ public class JabRefPreferences {
         defaults.Add("customIconThemeFile", "/home/alver/div/crystaltheme_16/Icons.properties");
 
         //defaults.Add("recentFiles", "/home/alver/Documents/bibk_dok/hovedbase.bib");
-        defaults.Add("historySize", Integer.valueOf(8));
-        defaults.Add("fontSize", Integer.valueOf(12));
+        defaults.Add("historySize", int.valueOf(8));
+        defaults.Add("fontSize", int.valueOf(12));
         defaults.Add("overrideDefaultFonts", Boolean.FALSE);
         defaults.Add("menuFontFamily", "Times");
-        defaults.Add("menuFontSize", Integer.valueOf(11));
+        defaults.Add("menuFontSize", int.valueOf(11));
         // Main table color settings:
         defaults.Add("tableBackground", "255:255:255");
         defaults.Add("tableReqFieldBackground", "230:235:255");
@@ -274,7 +274,7 @@ public class JabRefPreferences {
         defaults.Add("generateKeysBeforeSaving", Boolean.FALSE);
 
         defaults.Add("useRemoteServer", Boolean.FALSE);
-        defaults.Add("remoteServerPort", Integer.valueOf(6050));
+        defaults.Add("remoteServerPort", int.valueOf(6050));
 
         defaults.Add("personalJournalList", null);
         defaults.Add("externalJournalLists", null);
@@ -289,12 +289,12 @@ public class JabRefPreferences {
         defaults.Add("filechooserDisableRename", Boolean.TRUE);
 
         defaults.Add("lastUsedExport", null);
-        defaults.Add("sidePaneWidth", Integer.valueOf(-1));
+        defaults.Add("sidePaneWidth", int.valueOf(-1));
 
-        defaults.Add("importInspectionDialogWidth", Integer.valueOf(650));
-        defaults.Add("importInspectionDialogHeight", Integer.valueOf(650));
-        defaults.Add("searchDialogWidth", Integer.valueOf(650));
-        defaults.Add("searchDialogHeight", Integer.valueOf(500));
+        defaults.Add("importInspectionDialogWidth", int.valueOf(650));
+        defaults.Add("importInspectionDialogHeight", int.valueOf(650));
+        defaults.Add("searchDialogWidth", int.valueOf(650));
+        defaults.Add("searchDialogHeight", int.valueOf(500));
         defaults.Add("showFileLinksUpgradeWarning", Boolean.TRUE);
         defaults.Add("autolinkExactKeyOnly", Boolean.TRUE);
         defaults.Add("numericFields", "mittnum;author");
@@ -555,7 +555,7 @@ public class JabRefPreferences {
         try {
           Preferences.importPreferences(is);
         } catch (InvalidPreferencesFormatException ex) {
-          throw new IOException(ex.getMessage());
+          throw new IOException(ex.Message);
         }
       }*/
 

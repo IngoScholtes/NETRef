@@ -53,7 +53,7 @@ namespace net.sf.jabref.imports {
  * @author Morten O. Alver
  * @author Christopher Oezbek 
  */
-public class BibtexParser {
+public class BibtexParser : IDisposable {
 	
 	private TextReader _in;
 
@@ -83,6 +83,11 @@ public class BibtexParser {
 		}
 		_in = inFile;
 	}
+
+    public void Dispose()
+    {
+        _in.Dispose();
+    }
 
 	/**
 	 * Shortcut usage to create a Parser and read the input.
@@ -436,7 +441,7 @@ public class BibtexParser {
 			} catch (NoLabelException ex) {
 				// This exception will be thrown if the entry lacks a key
 				// altogether, like in "@article{ author = { ...".
-				// It will also be thrown if a key contains =.
+				// It will also be thrown if a key Contains =.
 				c = (char) Peek();
 				if (char.IsWhiteSpace((char)c) || (c == '{') || (c == '\"')) {
 					string fieldName = ex.Message.Trim().ToLower();
@@ -551,7 +556,7 @@ public class BibtexParser {
 					// Fixme: What is this for?
 					value.Append(string.valueOf(int.Parse(numString)));
 				} catch (FormatException e) {
-					// If Integer could not be parsed then just add the text
+					// If int could not be parsed then just add the text
 					// Used to fix [ 1594123 ] Failure to import big numbers
 					value.Append(numString);
 				}
@@ -680,7 +685,7 @@ public class BibtexParser {
 
             case ',':
 
-                _pr.AddWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (contains whitespaces).",
+                _pr.AddWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (Contains whitespaces).",
                         line.ToString()));
                 goto case '\n';
 

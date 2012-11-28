@@ -102,7 +102,7 @@ public class Util {
 						// If there's no exception, it's a number.
 						result.Append(s2);
 					} catch (FormatException ex) {
-						// otherwise append with hashes...
+						// otherwise Append with hashes...
 						result.Append('#').Append(s2).Append('#');
 					}
 				}
@@ -466,7 +466,7 @@ public class Util {
 		bool quoted = false;
 		for (int i = 0; i < s.Length; ++i) {
 			c = s[i];
-			if (quoted) { // append literally...
+			if (quoted) { // Append literally...
 				if (c != '\n') // ...unless newline
 					sb.Append(c);
 				quoted = false;
@@ -589,6 +589,26 @@ public class Util {
 		 */
 	}
 
+
+    /**
+     * Will convert a two digit year using the following scheme (describe at
+     * http://www.filemaker.com/help/02-Adding%20and%20view18.html):
+     * 
+     * If a two digit year is encountered they are matched against the last 69
+     * years and future 30 years.
+     * 
+     * For instance if it is the year 1992 then entering 23 is taken to be 1923
+     * but if you enter 23 in 1993 then it will evaluate to 2023.
+     * 
+     * @param year
+     *            The year to convert to 4 digits.
+     * @return
+     */
+    public static String toFourDigitYear(String year)
+    {
+        // TODO: check Calendar year thing returns teh same
+        return toFourDigitYear(year, System.DateTime.Now.Year);
+    }
 
 	/**
 	 * Will convert a two digit year using the following scheme (describe at

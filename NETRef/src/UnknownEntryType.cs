@@ -19,7 +19,7 @@ namespace net.sf.jabref {
 /**
  * This class is used to represent an unknown entry type, e.g. encountered
  * during bibtex parsing. The only known information is the type name.
- * This is useful if the bibtex file contains type definitions that are used
+ * This is useful if the bibtex file Contains type definitions that are used
  * in the file - because the entries will be parsed before the type definitions
  * are found. In the meantime, the entries will be assigned an 
  * UnknownEntryType giving the name.

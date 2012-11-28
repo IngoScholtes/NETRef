@@ -200,7 +200,7 @@ public class CustomEntryType : BibtexEntryType {
     }
 
 
-    public void save(StreamWriter outFile) {
+    public void save(TextWriter outFile) {
 	outFile.Write("@comment{");
     outFile.Write(Globals.ENTRYTYPE_FLAG);
     outFile.Write(getName());
@@ -212,7 +212,7 @@ public class CustomEntryType : BibtexEntryType {
 	    if (i<req.Length-1)
 		sb.Append(";");
 	}
-	out.write(sb.ToString());*/
+	out.Write(sb.ToString());*/
     outFile.Write("] opt[");
 	StringBuilder sb = new StringBuilder();
 	for (int i=0; i<opt.Length; i++) {
@@ -221,7 +221,7 @@ public class CustomEntryType : BibtexEntryType {
 		sb.Append(';');
 	}
     outFile.Write(sb.ToString());
-    outFile.Write("]}" + Globals.NEWLINE);
+    outFile.Write("]}" + Environment.NewLine);
     }
 
     public static CustomEntryType parseEntryType(string comment) { 

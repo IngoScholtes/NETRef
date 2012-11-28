@@ -34,8 +34,10 @@ Modified for use in JabRef
 // modified : r.nagel 23.08.2004
 //                - insert getEntryByKey() methode needed by AuxSubGenerator
 
+using net.sf.jabref.export;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -169,6 +171,17 @@ public class BibtexDatabase {
         
             return checkForDuplicateKeyAndAdd(null, entry.getCiteKey(), false);
         }
+    }
+    
+    public bool setCiteKeyForEntry(string id, string key) {
+        if (!_entries.ContainsKey(id)) return false; // Entry doesn't exist!
+        BibtexEntry entry = getEntryById(id);
+        String oldKey = entry.getCiteKey();
+        if (key != null)
+          entry.setField(BibtexFields.KEY_FIELD, key);
+        else
+          entry.clearField(BibtexFields.KEY_FIELD);
+        return checkForDuplicateKeyAndAdd(oldKey, entry.getCiteKey(), false);
     }
 
     /**
@@ -359,7 +372,7 @@ public class BibtexDatabase {
 
                 // Ok, we found the string. Now we must make sure we
                 // resolve any references to other strings in this one.
-                String res = str.getContent();
+                string res = str.getContent();
                 res = resolveContent(res, usedIds);
 
                 // Finished with recursing this branch, so we remove our
@@ -410,7 +423,7 @@ public class BibtexDatabase {
                 } else {
                     // We didn't find the boundaries of the string ref. This
                     // makes it impossible to interpret it as a string label.
-                    // So we should just append the rest of the text and finish.
+                    // So we should just Append the rest of the text and finish.
                     newRes.Append(res.Substring(next));
                     piv = res.Length;
                     break;
@@ -491,7 +504,7 @@ public class BibtexDatabase {
     private void removeKeyFromSet(string key){
                 if((key == null) || key.Equals("")) return;
                 if(allKeys.ContainsKey(key)){
-                        int tI = allKeys[key]; // if(allKeys.get(key) instanceof Integer)
+                        int tI = allKeys[key]; // if(allKeys.get(key) is int)
                         if(tI==1)
                                 allKeys.Remove( key);
                         else
@@ -511,7 +524,7 @@ public class BibtexDatabase {
 	 * @param field
 	 *            The field to return the value of.
 	 * @param bibtex maybenull
-	 *            The bibtex entry which contains the field.
+	 *            The bibtex entry which Contains the field.
 	 * @param database maybenull
 	 *            The database of the bibtex entry.
 	 * @return The resolved field value or null if not found.
@@ -559,6 +572,10 @@ public class BibtexDatabase {
 
     public void setFollowCrossrefs(bool followCrossrefs) {
         this.followCrossrefs = followCrossrefs;
+    }
+
+    public void saveDatabase(Stream file) {
+    	FileActions.saveDatabase(this, file, false, false, "UTF8");
     }
 }
 }

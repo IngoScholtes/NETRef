@@ -1,3 +1,4 @@
+using System;
 /*  Copyright (C) 2003-2011 JabRef contributors.
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@ public class FieldContentParser {
 
     /**
      * Performs the reformatting
-     * @param content StringBuilder containing the field to format. key contains field name according to field
+     * @param content StringBuilder containing the field to format. key Contains field name according to field
      *  was edited by Kuehn/Havalevich
      * @return The formatted field content. NOTE: the StringBuilder returned may
      * or may not be the same as the argument given.
@@ -171,13 +172,13 @@ public class FieldContentParser {
         for (int i=1; i<lines.Length; i++) {
 
             if (!lines[i].Trim().Equals("")) {
-                res.Append(Globals.NEWLINE);
+                res.Append(Environment.NewLine);
                 res.Append('\t');
-                res.Append(Globals.NEWLINE);
+                res.Append(Environment.NewLine);
                 res.Append('\t');
                 AddWrappedLine(res, lines[i], wrapAmount);
             } else {
-                res.Append(Globals.NEWLINE);
+                res.Append(Environment.NewLine);
                 res.Append('\t');
             }
         }
@@ -191,12 +192,12 @@ public class FieldContentParser {
         res.Append(line);
 
         while (p < res.Length){
-            int q = res.ToString().IndexOf(" ", p+wrapAmount);
+            int q = res.ToString().IndexOf(" ", Math.Min(p+wrapAmount, res.Length - 1));
             if ((q < 0) || (q >= res.Length))
                 break;
 
             res.Remove(q, 1);
-            res.Insert(q, Globals.NEWLINE+"\t");
+            res.Insert(q, Environment.NewLine+"\t");
             p = q+Globals.NEWLINE_LENGTH;
 
         }

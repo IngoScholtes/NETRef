@@ -28,8 +28,10 @@ Modified for use in JabRef.
 
 */
 
+using net.sf.jabref.export;
 using System;
 using System.Collections.Generic;
+using System.IO;
 namespace net.sf.jabref {
 
 
@@ -102,7 +104,7 @@ public class BibtexEntry
     }
 
     /**
-     * Returns true if this entry contains the fields it needs to be
+     * Returns true if this entry Contains the fields it needs to be
      * complete.
      */
     public bool hasAllRequiredFields(BibtexDatabase database)
@@ -187,7 +189,7 @@ public class BibtexEntry
     }
 
     /**
-     * Sets a number of fields simultaneously. The given Dictionary contains field
+     * Sets a number of fields simultaneously. The given Dictionary Contains field
      * names as keys, each mapped to the value to set.
      * WARNING: this method does not notify change listeners, so it should *NOT*
      * be used for entries that are being displayed in the GUI. Furthermore, it
@@ -261,7 +263,7 @@ public class BibtexEntry
         return clone;
     }
 
-    public string toString() {
+    public override string ToString() {
         return getType().getName()+":"+getField(Globals.KEY_FIELD);
     }
     
@@ -293,5 +295,80 @@ public class BibtexEntry
         return text.Substring(0, maxCharacters + 1) + "...";
     }
     
+    /**
+     * Write this entry to the given Writer, with the given FieldFormatter.
+     * @param write True if this is a write, false if it is a display. The write will
+     * not include non-writeable fields if it is a write, otherwise non-displayable fields
+     * will be ignored. Refer to GUIGlobals for isWriteableField(String) and
+     * isDisplayableField(String).
+     */
+    public void write(TextWriter writer, FieldFormatter ff, bool write) {
+        // Write header with type and bibtex-key.
+        writer.Write("@"+_type.getName().ToUpper(/*TODO:Locale.US*/)+"{");
+
+        String str = Util.shaveString(getField(BibtexFields.KEY_FIELD));
+        writer.Write(((str == null) ? "" : str)+","+Globals.NEWLINE);
+        Dictionary<String, String> written = new Dictionary<String, String>();
+        written.Add(BibtexFields.KEY_FIELD, null);
+        bool hasWritten = false;
+        // Write required fields first.
+        String[] s = getRequiredFields();
+        if (s != null) for (int i=0; i<s.Length; i++) {
+            hasWritten = hasWritten | writeField(s[i], writer, ff, hasWritten);
+            written.Add(s[i], null);
+        }
+        // Then optional fields.
+        s = getOptionalFields();
+        if (s != null) for (int i=0; i<s.Length; i++) {
+            if (!written.ContainsKey(s[i])) { // If field appears both in req. and opt. don't repeat.
+                //writeField(s[i], writer, ff);
+                hasWritten = hasWritten | writeField(s[i], writer, ff, hasWritten);
+                written.Add(s[i], null);
+            }
+        }
+        // Then Write remaining fields in alphabetic order.
+        var remainingFields = new Dictionary<String, bool>();
+        foreach (var key in _fields.Keys) {
+            bool writeIt = (write ? BibtexFields.isWriteableField(key) :
+                               BibtexFields.isDisplayableField(key));
+            if (!written.ContainsKey(key) && writeIt)
+                       remainingFields.Add(key, true);
+        }
+        foreach (var field in remainingFields.Keys)
+            hasWritten = hasWritten | writeField(field, writer, ff, hasWritten);
+
+        // Finally, end the entry.
+        writer.Write((hasWritten ? Globals.NEWLINE : "")+"}"+Globals.NEWLINE);
+    }
+
+    /**
+     * Write a single field, if it has any content.
+     * @param name The field name
+     * @param out The Writer to send it to
+     * @param ff A formatter to filter field contents before writing
+     * @param isFirst Indicates whether this is the first field written for
+     *    this entry - if not, start by writing a comma and newline
+     * @return true if this field was written, false if it was skipped because
+     *    it was not set
+     * @throws IOException In case of an IO error
+     */
+    private bool writeField(String name, TextWriter writer,
+                            FieldFormatter ff, bool isFirst) {
+        String o = getField(name);
+        if (o != null) {
+            if (isFirst)
+                writer.Write(","+Globals.NEWLINE);
+            writer.Write("  "+name+" = ");
+
+            try {
+                writer.Write(ff.format(o.ToString(), name));
+            } catch (Exception ex) {
+                throw new IOException
+                    (Globals.lang("Error in field")+" '"+name+"': "+ex.Message);
+            }
+            return true;
+        } else
+            return false;
+    }
 }
 }

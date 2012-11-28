@@ -23,6 +23,8 @@ namespace net.sf.jabref {
 public class Globals {
 	public static readonly string SIGNATURE =
 			"This file was created with JabRef";
+    
+	public static readonly string BIBTEX_STRING = "__string";
 
 	public static readonly string KEY_FIELD = "bibtexkey" ;
 
@@ -33,6 +35,10 @@ public class Globals {
     public static readonly string FILE_FIELD = "file";
 
     public static string JOURNALS_FILE_BUILTIN = "/resource/journalList.txt";
+    
+    public static readonly string COL_DEFINITION_FIELD_SEPARATOR = "/";
+    
+    public static readonly string TYPE_HEADER = "entrytype";
 
 	// TODO: public static ResourceBundle messages, menuTitles, intMessages;
 
@@ -108,7 +114,7 @@ public class Globals {
 							if (strs != null && index >= 0 && index <= strs.Length)
 								sb.Append(strs[index]);
 						} catch (FormatException e) {
-							// append literally (for quoting) or insert special
+							// Append literally (for quoting) or insert special
 							// symbol
 							switch (c) {
 							case 'c': // colon
