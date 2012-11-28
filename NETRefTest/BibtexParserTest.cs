@@ -15,8 +15,8 @@ namespace NETRefTest
         public void TestMethod1()
         {
             var parser = new BibtexParser(new StreamReader(@"../../bib/cvgip.bib"));
-            var result = parser.parse();
-            var db = result.getDatabase();
+            var result = parser.Parse();
+            var db = result.Database;
 
             foreach (var entry in db.getEntries())
             {

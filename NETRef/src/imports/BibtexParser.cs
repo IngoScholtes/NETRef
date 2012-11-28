@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+
 namespace net.sf.jabref.imports {
 
 /**
@@ -90,9 +91,9 @@ public class BibtexParser {
 	 *            Reader to read from
 	 * @throws IOException
 	 */
-	public static ParserResult parse(StreamReader inFile) {
+	public static ParserResult Parse(StreamReader inFile) {
 		BibtexParser parser = new BibtexParser(inFile);
-		return parser.parse();
+		return parser.Parse();
 	}
 	
 	
@@ -103,11 +104,11 @@ public class BibtexParser {
 	 * 
 	 * @return Returns null if an error occurred, returns an empty collection if no entries where found. 
 	 */
-	public static ICollection<BibtexEntry> fromString(string bibtexString){
+	public static ICollection<BibtexEntry> FromString(string bibtexString){
 	    StringReader reader = new StringReader(bibtexString);
 		BibtexParser parser = new BibtexParser(reader); 
 		try {
-			return parser.parse().getDatabase().getEntries();
+			return parser.Parse().Database.getEntries();
 		} catch (Exception e){
 			return null;
 		}
@@ -122,8 +123,8 @@ public class BibtexParser {
 	 * 
 	 * @return The bibtexentry or null if non was found or an error occurred.
 	 */
-	public static BibtexEntry singleFromString(string bibtexString) {
-		ICollection<BibtexEntry> c = fromString(bibtexString);
+	public static BibtexEntry SingleFromString(string bibtexString) {
+		ICollection<BibtexEntry> c = FromString(bibtexString);
 		if (c == null){
 			return null;
 		}
@@ -135,7 +136,7 @@ public class BibtexParser {
 	/**
 	 * Check whether the source is in the correct format for this importer.
 	 */
-	public static bool isRecognizedFormat(TextReader inStream) {
+	public static bool IsRecognizedFormat(TextReader inStream) {
 		// Our strategy is to look for the "@<type>    {" line.
 		Regex pat1 = new Regex("@[a-zA-Z]*\\s*\\{");
 
@@ -152,20 +153,20 @@ public class BibtexParser {
 		return false;
 	}
 
-	private void skipWhitespace() {
+	private void SkipWhitespace() {
 		int c;
 
 		while (true) {
-			c = peek();
+			c = Peek();
 			if ((c == -1) || (c == 65535)) {
 				_eof = true;
-                read();
+                Read();
 				return;
 			}
 
             if (char.IsWhiteSpace((char)c))
             {
-                read();
+                Read();
                 continue;
             }
 			/*
@@ -176,23 +177,23 @@ public class BibtexParser {
 		}
 	}
 
-	private string skipAndRecordWhitespace(int j) {
+	private string SkipAndRecordWhitespace(int j) {
 		int c;
 		StringBuilder sb = new StringBuilder();
 		if (j != ' ')
 			sb.Append((char) j);
 		while (true) {
-			c = peek();
+			c = Peek();
 			if ((c == -1) || (c == 65535)) {
 				_eof = true;
-                read();
+                Read();
 				return sb.ToString();
 			}
 
 			if (char.IsWhiteSpace((char) c)) {
 				if (c != ' ')
 					sb.Append((char) c);
-                read();
+                Read();
 				continue;
 			}
 			/*
@@ -214,7 +215,7 @@ public class BibtexParser {
 	 * @return ParserResult
 	 * @throws IOException
 	 */
-	public ParserResult parse() {
+	public ParserResult Parse() {
 
 		// If we already parsed this, just return it.
 		if (_pr != null)
@@ -227,24 +228,24 @@ public class BibtexParser {
 
         // First see if we can find the version number of the JabRef version that
         // wrote the file:
-        string versionNum = readJabRefVersionNumber();
+        string versionNum = ReadJabRefVersionNumber();
         if (versionNum != null) {
-            _pr.setJabrefVersion(versionNum);
-            setMajorMinorVersions();
+            _pr.JabrefVersion = versionNum;
+            SetMajorMinorVersions();
         }
         else {
             // No version number found. However, we have only
         }
 
-        skipWhitespace();
+        SkipWhitespace();
 
 		try {
 			while (!_eof) {
-				bool found = consumeUncritically('@');
+				bool found = ConsumeUncritically('@');
 				if (!found)
 					break;
-				skipWhitespace();
-				string entryType = parseTextToken();
+				SkipWhitespace();
+				string entryType = ParseTextToken();
 				BibtexEntryType tp = BibtexEntryType.getType(entryType);
 				bool isEntry = (tp != null);
 				// Util.pr(tp.getName());
@@ -254,18 +255,18 @@ public class BibtexParser {
 					// parse and set accordingly. If not, assume it is an entry
 					// with an unknown type.
 					if (entryType.ToLower().Equals("preamble")) {
-						_db.setPreamble(parsePreamble());
+						_db.setPreamble(ParsePreamble());
 					} else if (entryType.ToLower().Equals("string")) {
-						BibtexString bs = parseString();
+						BibtexString bs = ParseString();
 						try {
 							_db.addString(bs);
 						} catch (KeyCollisionException ex) {
-							_pr.addWarning(Globals.lang("Duplicate string name") + ": "
+							_pr.AddWarning(Globals.lang("Duplicate string name") + ": "
 								+ bs.getName());
 							// ex.printStackTrace();
 						}
 					} else if (entryType.ToLower().Equals("comment")) {
-						StringBuilder commentBuf = parseBracketedTextExactly();
+						StringBuilder commentBuf = ParseBracketedTextExactly();
 						/**
 						 * 
 						 * Metadata are used to store Bibkeeper-specific
@@ -346,32 +347,32 @@ public class BibtexParser {
 					 * exception and adding it before parsing is continued.
 					 */
 					try {
-						BibtexEntry be = parseEntry(tp);
+						BibtexEntry be = ParseEntry(tp);
 
 						bool duplicateKey = _db.insertEntry(be);
 						if (duplicateKey) // JZTODO lyrics
-                            _pr.addDuplicateKey(be.getCiteKey());
+                            _pr.AddDuplicateKey(be.getCiteKey());
 							/*_pr.AddWarning(Globals.lang("duplicate BibTeX key") + ": "
 								+ be.getCiteKey() + " ("
 								+ Globals.lang("grouping may not work for this entry") + ")");                        */
 						else if (be.getCiteKey() == null || be.getCiteKey().Equals("")) {
-							_pr.addWarning(Globals.lang("empty BibTeX key") + ": "
+							_pr.AddWarning(Globals.lang("empty BibTeX key") + ": "
 								+ be.getAuthorTitleYear(40) + " ("
 								+ Globals.lang("grouping may not work for this entry") + ")");
 						}
 					} catch (IOException ex) {
-						_pr.addWarning(Globals.lang("Error occured when parsing entry") + ": '"
+						_pr.AddWarning(Globals.lang("Error occured when parsing entry") + ": '"
 							+ ex.Message + "'. " + Globals.lang("Skipped entry."));
 
 					}
 				}
 
-				skipWhitespace();
+				SkipWhitespace();
 			}
 
 			// Before returning the database, update entries with unknown type
 			// based on parsed type definitions, if possible.
-			checkEntryTypes(_pr);
+			CheckEntryTypes(_pr);
 
 			return _pr;
 		} catch (KeyCollisionException kce) {
@@ -380,66 +381,66 @@ public class BibtexParser {
 		}
 	}
 
-	private int peek() {		
+	private int Peek() {		
         return _in.Peek();
 	}
 
-	private int read() {
+	private int Read() {
 		int c = _in.Read();
 		if (c == '\n')
 			line++;
 		return c;
 	}
     
-	public BibtexString parseString() {
+	public BibtexString ParseString() {
 		// Util.pr("Parsing string");
-		skipWhitespace();
-		consume('{', '(');
+		SkipWhitespace();
+		Consume('{', '(');
 		// while (read() != '}');
-		skipWhitespace();
+		SkipWhitespace();
 		// Util.pr("Parsing string name");
-		string name = parseTextToken();
+		string name = ParseTextToken();
 		// Util.pr("Parsed string name");
-		skipWhitespace();
+		SkipWhitespace();
 		// Util.pr("Now the contents");
-		consume('=');
-		string content = parseFieldContent(name);
+		Consume('=');
+		string content = ParseFieldContent(name);
 		// Util.pr("Now I'm going to consume a }");
-		consume('}', ')');
+		Consume('}', ')');
 		// Util.pr("Finished string parsing.");
 		string id = Util.createNeutralId();
 		return new BibtexString(id, name, content);
 	}
 
-	public string parsePreamble() {
-		return parseBracketedText().ToString();
+	public string ParsePreamble() {
+		return ParseBracketedText().ToString();
 	}
 
-	public BibtexEntry parseEntry(BibtexEntryType tp) {
+	public BibtexEntry ParseEntry(BibtexEntryType tp) {
 		string id = Util.createNeutralId();// createId(tp, _db);
 		BibtexEntry result = new BibtexEntry(id, tp);
-		skipWhitespace();
-		consume('{', '(');
-        int c = peek();
+		SkipWhitespace();
+		Consume('{', '(');
+        int c = Peek();
         if ((c != '\n') && (c != '\r'))
-            skipWhitespace();
+            SkipWhitespace();
 		string key = null;
 		bool doAgain = true;
 		while (doAgain) {
 			doAgain = false;
 			try {
 				if (key != null)
-					key = key + parseKey();// parseTextToken(),
+					key = key + ParseKey();// parseTextToken(),
 				else
-					key = parseKey();
+					key = ParseKey();
 			} catch (NoLabelException ex) {
 				// This exception will be thrown if the entry lacks a key
 				// altogether, like in "@article{ author = { ...".
 				// It will also be thrown if a key contains =.
-				c = (char) peek();
+				c = (char) Peek();
 				if (char.IsWhiteSpace((char)c) || (c == '{') || (c == '\"')) {
 					string fieldName = ex.Message.Trim().ToLower();
-					string cont = parseFieldContent(fieldName);
+					string cont = ParseFieldContent(fieldName);
 					result.setField(fieldName, cont);
 				} else {
 					if (key != null)
@@ -455,36 +456,36 @@ public class BibtexParser {
 			key = null;
 
 		result.setField(Globals.KEY_FIELD, key);
-		skipWhitespace();
+		SkipWhitespace();
 
 		while (true) {
-			c = peek();
+			c = Peek();
 			if ((c == '}') || (c == ')')) {
 				break;
 			}
 
 			if (c == ',')
-				consume(',');
+				Consume(',');
 
-			skipWhitespace();
+			SkipWhitespace();
 
-			c = peek();
+			c = Peek();
 			if ((c == '}') || (c == ')')) {
 				break;
 			}
-			parseField(result);
+			ParseField(result);
 		}
 
-		consume('}', ')');
+		Consume('}', ')');
 		return result;
 	}
 
-	private void parseField(BibtexEntry entry) {
-		string key = parseTextToken().ToLower();
+	private void ParseField(BibtexEntry entry) {
+		string key = ParseTextToken().ToLower();
 		// Util.pr("Field: _"+key+"_");
-		skipWhitespace();
-		consume('=');
-		string content = parseFieldContent(key);
+		SkipWhitespace();
+		Consume('=');
+		string content = ParseFieldContent(key);
 		if (content.Length > 0) {
 			if (entry.getField(key) == null)
 				entry.setField(key, content);
@@ -504,19 +505,19 @@ public class BibtexParser {
 		}
 	}
 
-	private string parseFieldContent(string key) {
-		skipWhitespace();
+	private string ParseFieldContent(string key) {
+		SkipWhitespace();
 		StringBuilder value = new StringBuilder();
 		int c = '.';
 
-		while (((c = peek()) != ',') && (c != '}') && (c != ')')) {
+		while (((c = Peek()) != ',') && (c != '}') && (c != ')')) {
 
 			if (_eof) {
 				throw new Exception("Error in line " + line + ": EOF in mid-string");
 			}
 			if (c == '"') {
-				StringBuilder text = parseQuotedFieldExactly();
-				value.Append(fieldContentParser.format(text));
+				StringBuilder text = ParseQuotedFieldExactly();
+				value.Append(fieldContentParser.Format(text));
 				/*
 				 * 
 				 * The following code doesn't handle {"} correctly: // value is
@@ -535,12 +536,12 @@ public class BibtexParser {
 				// Value is a string enclosed in brackets. There can be pairs
 				// of brackets inside of a field, so we need to count the
 				// brackets to know when the string is finished.
-				StringBuilder text = parseBracketedTextExactly();
-				value.Append(fieldContentParser.format(text, key));
+				StringBuilder text = ParseBracketedTextExactly();
+				value.Append(fieldContentParser.Format(text, key));
 
 			} else if (char.IsDigit((char) c)) { // value is a number
 
-				string numString = parseTextToken();
+				string numString = ParseTextToken();
                 // Morten Alver 2007-07-04: I don't see the point of parsing the integer
                 // and converting it back to a string, so I'm removing the construct below
                 // the following line:
@@ -556,9 +557,9 @@ public class BibtexParser {
 				}
 				*/
 			} else if (c == '#') {
-				consume('#');
+				Consume('#');
 			} else {
-				string textToken = parseTextToken();
+				string textToken = ParseTextToken();
 				if (textToken.Length == 0)
 					throw new IOException("Error in line " + line + " or above: "
 						+ "Empty text token.\nThis could be caused "
@@ -567,7 +568,7 @@ public class BibtexParser {
 				// Util.pr(parseTextToken());
 				// throw new Exception("Unknown field type");
 			}
-			skipWhitespace();
+			SkipWhitespace();
 		}
 
 		return value.ToString();
@@ -587,22 +588,22 @@ public class BibtexParser {
 	 * This method is used to parse string labels, field names, entry type and
 	 * numbers outside brackets.
 	 */
-	private string parseTextToken() {
+	private string ParseTextToken() {
 		StringBuilder token = new StringBuilder(20);
 
 		while (true) {
-			int c = peek();
+			int c = Peek();
 			// Util.pr(".. "+c);
 			if (c == -1) {
 				_eof = true;
-                read();
+                Read();
 				return token.ToString();
 			}
 
 			if (char.IsLetterOrDigit((char) c) || (c == ':') || (c == '-') || (c == '_')
 				|| (c == '*') || (c == '+') || (c == '.') || (c == '/') || (c == '\'')) {
 				token.Append((char) c);
-                read();
+                Read();
 			} else {
 				return token.ToString();
 			}
@@ -617,7 +618,7 @@ public class BibtexParser {
 	 * @throws IOException
 	 *             on Reader-Error
 	 */
-    private string fixKey() {
+    private string FixKey() {
         // TODO: fix
         StringBuilder key = new StringBuilder();
         int lookahead_used = 0;
@@ -626,9 +627,9 @@ public class BibtexParser {
 
         // Find a char which ends key (','&&'\n') or entryfield ('='):
         do {
-            if (!first) read();
+            if (!first) Read();
             first = false;
-            currentChar = (char) peek();
+            currentChar = (char) Peek();
             key.Append(currentChar);
             lookahead_used++;
         } while ((currentChar != ',' && currentChar != '\n' && currentChar != '=')
@@ -654,7 +655,7 @@ public class BibtexParser {
                     matchedAlpha = true;
 
                     // Begin of entryfieldname (e.g. author) -> push back:
-                    unread(currentChar);
+                    Unread(currentChar);
                     if (currentChar == ' ' || currentChar == '\n') {
 
                         /*
@@ -670,7 +671,7 @@ public class BibtexParser {
                         }
 
                         // Finished, now reverse newKey and remove whitespaces:
-                        _pr.addWarning(Globals.lang("Line %0: Found corrupted BibTeX-key.",
+                        _pr.AddWarning(Globals.lang("Line %0: Found corrupted BibTeX-key.",
                                 line.ToString()));
                         key = newKey.reverse();
                     }
@@ -679,13 +680,13 @@ public class BibtexParser {
 
             case ',':
 
-                _pr.addWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (contains whitespaces).",
+                _pr.AddWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (contains whitespaces).",
                         line.ToString()));
                 goto case '\n';
 
             case '\n':
 
-                _pr.addWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (comma missing).",
+                _pr.AddWarning(Globals.lang("Line %0: Found corrupted BibTeX-key (comma missing).",
                         line.ToString()));
 
                 break;
@@ -693,11 +694,11 @@ public class BibtexParser {
             default:
 
                 // No more lookahead, give up:
-                unreadBuffer(key);
+                UnreadBuffer(key);
                 return "";
         }
 
-        return removeWhitespaces(key).ToString();
+        return RemoveWhitespaces(key).ToString();
     }
 
 	/**
@@ -706,7 +707,7 @@ public class BibtexParser {
 	 * @param sb
 	 * @return
 	 */
-	private StringBuilder removeWhitespaces(StringBuilder sb) {
+	private StringBuilder RemoveWhitespaces(StringBuilder sb) {
 		StringBuilder newSb = new StringBuilder();
 		char current;
 		for (int i = 0; i < sb.Length; ++i) {
@@ -724,13 +725,13 @@ public class BibtexParser {
 	 * @throws IOException
 	 *             can be thrown if buffer is bigger than LOOKAHEAD
 	 */
-	private void unreadBuffer(StringBuilder sb) {
+	private void UnreadBuffer(StringBuilder sb) {
 		for (int i = sb.Length - 1; i >= 0; --i) {
-			unread(sb[i]);
+			Unread(sb[i]);
 		}
 	}
 
-    private void unread(char c)
+    private void Unread(char c)
     {
         // TODO: fix
         throw new Exception();
@@ -740,15 +741,15 @@ public class BibtexParser {
 	/**
 	 * This method is used to parse the bibtex key for an entry.
 	 */
-	private string parseKey() {
+	private string ParseKey() {
 		StringBuilder token = new StringBuilder(20);
 
 		while (true) {
-			int c = peek();
+			int c = Peek();
 			// Util.pr(".. '"+(char)c+"'\t"+c);
 			if (c == -1) {
 				_eof = true;
-                read();
+                Read();
 				return token.ToString();
 			}
 
@@ -758,7 +759,7 @@ public class BibtexParser {
 			if (!char.IsWhiteSpace((char) c)
 				&& (char.IsLetterOrDigit((char) c) || ((c != '#') && (c != '{') && (c != '}')
 					&& (c != '\uFFFD') && (c != '~') && (c != '\uFFFD') && (c != ',') && (c != '=')))) {
-                read();
+                Read();
 				token.Append((char) c);
 			} else {
 
@@ -768,8 +769,8 @@ public class BibtexParser {
 					// the key. Possibly the comma is missing, so we try to
 					// return what we
 					// have found, as the key and try to restore the rest in fixKey().
-                    read();
-					return token.ToString()+fixKey();
+                    Read();
+					return token.ToString()+FixKey();
 				} else if (c == ',') {
 					return token.ToString();
 					// } else if (char.IsWhiteSpace((char)c)) {
@@ -777,7 +778,7 @@ public class BibtexParser {
 				} else if (c == '=') {
 					// If we find a '=' sign, it is either an error, or
 					// the entry lacked a comma signifying the end of the key.
-                    read();
+                    Read();
 					return token.ToString();
 					// throw new NoLabelException(token.ToString());
 
@@ -793,17 +794,17 @@ public class BibtexParser {
 	private class NoLabelException : Exception {
 	}
 
-	private StringBuilder parseBracketedText() {
+	private StringBuilder ParseBracketedText() {
 		// Util.pr("Parse bracketed text");
 		StringBuilder value = new StringBuilder();
 
-		consume('{');
+		Consume('{');
 
 		int brackets = 0;
 
-		while (!((peek() == '}') && (brackets == 0))) {
+		while (!((Peek() == '}') && (brackets == 0))) {
 
-			int j = read();
+			int j = Read();
 			if ((j == -1) || (j == 65535)) {
 				throw new Exception("Error in line " + line + ": EOF in mid-string");
 			} else if (j == '{')
@@ -817,7 +818,7 @@ public class BibtexParser {
 			 * if (j == '\n') { if (peek() == '\n') value.Append('\n'); } else
 			 */
 			if (char.IsWhiteSpace((char) j)) {
-				string whs = skipAndRecordWhitespace(j);
+				string whs = SkipAndRecordWhitespace(j);
 
 				// System.out.println(":"+whs+":");
 
@@ -840,22 +841,22 @@ public class BibtexParser {
 
 		}
 
-		consume('}');
+		Consume('}');
 
 		return value;
 	}
 
-	private StringBuilder parseBracketedTextExactly() {
+	private StringBuilder ParseBracketedTextExactly() {
 
 		StringBuilder value = new StringBuilder();
 
-		consume('{');
+		Consume('{');
 
 		int brackets = 0;
 
-		while (!((peek() == '}') && (brackets == 0))) {
+		while (!((Peek() == '}') && (brackets == 0))) {
 
-			int j = read();
+			int j = Read();
 			if ((j == -1) || (j == 65535)) {
 				throw new Exception("Error in line " + line + ": EOF in mid-string");
 			} else if (j == '{')
@@ -867,22 +868,22 @@ public class BibtexParser {
 
 		}
 
-		consume('}');
+		Consume('}');
 
 		return value;
 	}
 
-	private StringBuilder parseQuotedFieldExactly() {
+	private StringBuilder ParseQuotedFieldExactly() {
 
 		StringBuilder value = new StringBuilder();
 
-		consume('"');
+		Consume('"');
 
 		int brackets = 0;
 
-		while (!((peek() == '"') && (brackets == 0))) {
+		while (!((Peek() == '"') && (brackets == 0))) {
 
-			int j = read();
+			int j = Read();
 			if ((j == -1) || (j == 65535)) {
 				throw new Exception("Error in line " + line + ": EOF in mid-string");
 			} else if (j == '{')
@@ -894,13 +895,13 @@ public class BibtexParser {
 
 		}
 
-		consume('"');
+		Consume('"');
 
 		return value;
 	}
 
-	private void consume(char expected) {
-		int c = read();
+	private void Consume(char expected) {
+		int c = Read();
 
 		if (c != expected) {
 			throw new Exception("Error in line " + line + ": Expected " + expected
@@ -909,9 +910,9 @@ public class BibtexParser {
 
 	}
 
-	private bool consumeUncritically(char expected) {
+	private bool ConsumeUncritically(char expected) {
 		int c;
-		while (((c = read()) != expected) && (c != -1) && (c != 65535)){
+		while (((c = Read()) != expected) && (c != -1) && (c != 65535)){
 		    // do nothing
 		}
 			
@@ -922,10 +923,10 @@ public class BibtexParser {
 		return c == expected;
 	}
 
-	private void consume(char expected1, char expected2) {
+	private void Consume(char expected1, char expected2) {
 		// Consumes one of the two, doesn't care which appears.
 
-		int c = read();
+		int c = Read();
 
 		if ((c != expected1) && (c != expected2)) {
 			throw new Exception("Error in line " + line + ": Expected " + expected1 + " or "
@@ -935,7 +936,7 @@ public class BibtexParser {
 
 	}
 
-	public void checkEntryTypes(ParserResult _pr) {
+	public void CheckEntryTypes(ParserResult _pr) {
 		
 		foreach (BibtexEntry be in _db.getEntries()){
 			if (be.getType() is UnknownEntryType) {
@@ -949,7 +950,7 @@ public class BibtexParser {
 					// System.out.println("Unknown entry type:
 					// "+be.getType().getName());
 					_pr
-						.addWarning(Globals.lang("unknown entry type") + ": "
+						.AddWarning(Globals.lang("unknown entry type") + ": "
 							+ be.getType().getName() + ". " + Globals.lang("Type set to 'other'")
 							+ ".");
 					be.setType(BibtexEntryType.OTHER.Instance);
@@ -968,7 +969,7 @@ public class BibtexParser {
      * @return The version number, or null if not found.
      * @throws IOException
      */
-    private string readJabRefVersionNumber() {
+    private string ReadJabRefVersionNumber() {
         StringBuilder headerText = new StringBuilder();
         
         bool keepon = true;
@@ -979,13 +980,13 @@ public class BibtexParser {
         // the version number:
         //                     This file was created with JabRef X.y.
         while (keepon) {
-            c = peek();
+            c = Peek();
             headerText.Append((char) c);
             if ((piv == 0) && (char.IsWhiteSpace((char) c) || (c == '%')))
-                read();
+                Read();
             else if (c == Globals.SIGNATURE[piv]) {
                 piv++;
-                read();
+                Read();
             }
             else {
                 keepon = false;
@@ -998,7 +999,7 @@ public class BibtexParser {
 
                 // Found the standard part. Now read the version number:
                 StringBuilder sb = new StringBuilder();
-                while (((c=read()) != '\n') && (c != -1))
+                while (((c=Read()) != '\n') && (c != -1))
                     sb.Append((char)c);
                 string versionNum = sb.ToString().Trim();
                 // See if it fits the X.y. pattern:
@@ -1022,8 +1023,8 @@ public class BibtexParser {
      * parse the version number to determine the JabRef major and minor version
      * number
      */
-    private void setMajorMinorVersions() {
-        string v = _pr.getJabrefVersion();
+    private void SetMajorMinorVersions() {
+        string v = _pr.JabrefVersion;
         Regex p = new Regex("([0-9]+)\\.([0-9]+).*");
         Regex p2 = new Regex("([0-9]+)\\.([0-9]+)\\.([0-9]+).*");
         var m = p.Match(v);
@@ -1031,12 +1032,12 @@ public class BibtexParser {
         if (m.Success)
             if (m.Groups.Count >= 2) {
                 // TODO: zero-based indexing?
-                _pr.setJabrefMajorVersion(int.Parse(m.Groups[0].Value));
-                _pr.setJabrefMinorVersion(int.Parse(m.Groups[1].Value));
+                _pr.JabrefMajorVersion = int.Parse(m.Groups[0].Value);
+                _pr.JabrefMinorVersion = int.Parse(m.Groups[1].Value);
             }
         if (m2.Success)
             if (m2.Groups.Count >= 3) {
-                _pr.setJabrefMinor2Version(int.Parse(m2.Groups[2].Value));
+                _pr.JabrefMinor2Version = int.Parse(m2.Groups[2].Value);
             }
     }
 }

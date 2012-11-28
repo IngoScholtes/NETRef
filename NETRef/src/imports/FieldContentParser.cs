@@ -14,6 +14,7 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using System.Text;
+
 namespace net.sf.jabref.imports {
 
 
@@ -31,7 +32,7 @@ public class FieldContentParser {
      * @return The formatted field content. NOTE: the StringBuilder returned may
      * or may not be the same as the argument given.
      */
-	public StringBuilder format(StringBuilder content, string key) {
+	public StringBuilder Format(StringBuilder content, string key) {
 
         /*System.out.println("Content: '"+content+"'");
         byte[] bt = content.ToString().getBytes();
@@ -151,8 +152,8 @@ public class FieldContentParser {
      * @return The formatted field content. NOTE: the StringBuilder returned may
      * or may not be the same as the argument given.
      */
-    public StringBuilder format(StringBuilder content) { 
-    	return format(content, null);
+    public StringBuilder Format(StringBuilder content) { 
+    	return Format(content, null);
     }
 
     /**
@@ -162,11 +163,11 @@ public class FieldContentParser {
      * @param wrapAmount
      * @return the wrapped string.
      */
-    public static string wrap(string str, int wrapAmount){
+    public static string Wrap(string str, int wrapAmount){
 
         string[] lines = str.Split('\n');
         StringBuilder res = new StringBuilder();
-        addWrappedLine(res, lines[0], wrapAmount);
+        AddWrappedLine(res, lines[0], wrapAmount);
         for (int i=1; i<lines.Length; i++) {
 
             if (!lines[i].Trim().Equals("")) {
@@ -174,7 +175,7 @@ public class FieldContentParser {
                 res.Append('\t');
                 res.Append(Globals.NEWLINE);
                 res.Append('\t');
-                addWrappedLine(res, lines[i], wrapAmount);
+                AddWrappedLine(res, lines[i], wrapAmount);
             } else {
                 res.Append(Globals.NEWLINE);
                 res.Append('\t');
@@ -183,7 +184,7 @@ public class FieldContentParser {
         return res.ToString();
     }
 
-    private static void addWrappedLine(StringBuilder res, string line, int wrapAmount) {
+    private static void AddWrappedLine(StringBuilder res, string line, int wrapAmount) {
         // Set our pointer to the beginning of the new line in the StringBuilder:
         int p = res.Length;
         // Add the line, unmodified:
@@ -199,10 +200,6 @@ public class FieldContentParser {
             p = q+Globals.NEWLINE_LENGTH;
 
         }
-    }
-
-    static class Indents {
-        //int hyp
     }
 }
 }

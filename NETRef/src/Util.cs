@@ -184,7 +184,7 @@ public class Util {
 	}
 
 	static public string wrap2(string inStr, int wrapAmount) {
-		return net.sf.jabref.imports.FieldContentParser.wrap(inStr, wrapAmount);
+		return net.sf.jabref.imports.FieldContentParser.Wrap(inStr, wrapAmount);
 	}
 
 	/**
