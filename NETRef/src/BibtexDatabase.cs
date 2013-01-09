@@ -491,7 +491,7 @@ public class BibtexDatabase {
                 if(allKeys.ContainsKey(key)){
                         // warning
                         exists=true;
-                        allKeys.Add( key, allKeys[key] + 1);// incrementInteger( allKeys.get(key)));
+                        allKeys[key] = allKeys[key] + 1;// incrementInteger( allKeys.get(key)));
                 }else
                         allKeys.Add( key, 1);
                 return exists;

@@ -101,7 +101,7 @@ public class Util {
 						int.Parse(s2);
 						// If there's no exception, it's a number.
 						result.Append(s2);
-					} catch (FormatException ex) {
+					} catch (FormatException) {
 						// otherwise Append with hashes...
 						result.Append('#').Append(s2).Append('#');
 					}
@@ -651,7 +651,7 @@ public class Util {
                     return (thisCentury + yearNumber).ToString();
 				}
 			}
-		} catch (FormatException e) {
+		} catch (FormatException) {
 			return year;
 		}
 	}
@@ -681,7 +681,7 @@ public class Util {
 
 		try {
 			return int.Parse(month) - 1;
-		} catch (FormatException e) {
+		} catch (FormatException) {
 		}
 		return -1;
 	}

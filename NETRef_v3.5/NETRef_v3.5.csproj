@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NETRef2</RootNamespace>
+    <AssemblyName>NETRef2</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NETRef\src\AuthorList.cs">
+      <Link>src\AuthorList.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibLatexEntryTypes.cs">
+      <Link>src\BibLatexEntryTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexDatabase.cs">
+      <Link>src\BibtexDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexEntry.cs">
+      <Link>src\BibtexEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexEntryType.cs">
+      <Link>src\BibtexEntryType.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexFields.cs">
+      <Link>src\BibtexFields.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexString.cs">
+      <Link>src\BibtexString.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\BibtexStringComparator.cs">
+      <Link>src\BibtexStringComparator.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\CrossRefEntryComparator.cs">
+      <Link>src\CrossRefEntryComparator.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\CustomEntryType.cs">
+      <Link>src\CustomEntryType.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\export\FieldFormatter.cs">
+      <Link>src\export\FieldFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\export\FileActions.cs">
+      <Link>src\export\FileActions.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\export\LatexFieldFormatter.cs">
+      <Link>src\export\LatexFieldFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\export\SaveException.cs">
+      <Link>src\export\SaveException.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\ExtensionMethods.cs">
+      <Link>src\ExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\FieldComparator.cs">
+      <Link>src\FieldComparator.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\FieldComparatorStack.cs">
+      <Link>src\FieldComparatorStack.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\Globals.cs">
+      <Link>src\Globals.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\GUIGlobals.cs">
+      <Link>src\GUIGlobals.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\IdComparator.cs">
+      <Link>src\IdComparator.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\imports\BibtexParser.cs">
+      <Link>src\imports\BibtexParser.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\imports\FieldContentParser.cs">
+      <Link>src\imports\FieldContentParser.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\imports\ParserResult.cs">
+      <Link>src\imports\ParserResult.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\JabRefPreferences.cs">
+      <Link>src\JabRefPreferences.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\KeyCollisionException.cs">
+      <Link>src\KeyCollisionException.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\UnknownEntryType.cs">
+      <Link>src\UnknownEntryType.cs</Link>
+    </Compile>
+    <Compile Include="..\NETRef\src\Util.cs">
+      <Link>src\Util.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

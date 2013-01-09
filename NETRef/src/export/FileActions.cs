@@ -93,7 +93,7 @@ namespace net.sf.jabref.export
                     string formatted = (new LatexFieldFormatter()).format(bs.getContent(), Globals.BIBTEX_STRING);
                     fw.Write(formatted);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
                     throw new ArgumentException(
                             Globals.lang("The # character is not allowed in BibTeX strings unless escaped as in '\\#'.") + "\n" +

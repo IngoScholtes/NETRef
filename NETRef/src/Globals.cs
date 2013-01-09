@@ -113,7 +113,7 @@ public class Globals {
 							int index = int.Parse(c.ToString());
 							if (strs != null && index >= 0 && index <= strs.Length)
 								sb.Append(strs[index]);
-						} catch (FormatException e) {
+						} catch (FormatException) {
 							// Append literally (for quoting) or insert special
 							// symbol
 							switch (c) {

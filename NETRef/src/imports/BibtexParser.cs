@@ -114,7 +114,7 @@ public class BibtexParser : IDisposable {
 		BibtexParser parser = new BibtexParser(reader); 
 		try {
 			return parser.Parse().Database.getEntries();
-		} catch (Exception e){
+		} catch (Exception){
 			return null;
 		}
 	}
@@ -265,7 +265,7 @@ public class BibtexParser : IDisposable {
 						BibtexString bs = ParseString();
 						try {
 							_db.addString(bs);
-						} catch (KeyCollisionException ex) {
+						} catch (KeyCollisionException) {
 							_pr.AddWarning(Globals.lang("Duplicate string name") + ": "
 								+ bs.getName());
 							// ex.printStackTrace();

@@ -119,13 +119,13 @@ public class FieldComparator : IComparer<BibtexEntry> {
             int? i1 = null, i2 = null;
             try {
                 i1 = int.Parse((string)f1);
-            } catch (FormatException ex) {
+            } catch (FormatException) {
                 // Parsing failed.
             }
 
             try {
                 i2 = int.Parse((string)f2);
-            } catch (FormatException ex) {
+            } catch (FormatException) {
                 // Parsing failed.
             }
 

@@ -457,7 +457,7 @@ public class JabRefPreferences {
             while ((rs = getNextUnit(rd)) != null) {
                 arr.Add(rs);
             }
-        } catch (IOException ex) {}
+        } catch (IOException) {}
         string[] res = new string[arr.Count];
         for (int i=0; i<res.Length; i++)
             res[i] = arr[i];

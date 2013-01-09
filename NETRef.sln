@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETRef", "NETRef\NETRef.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETRefTest", "NETRefTest\NETRefTest.csproj", "{0DEAD5FC-853A-458F-BF60-C44131880ADE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETRef_v3.5", "NETRef_v3.5\NETRef_v3.5.csproj", "{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DEAD5FC-853A-458F-BF60-C44131880ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

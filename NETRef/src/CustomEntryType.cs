@@ -244,7 +244,7 @@ public class CustomEntryType : BibtexEntryType {
 	    string optFields = rest.Substring(rPos+6, oPos);
 	    //System.out.println("o '"+optFields+"'");
 	    return new CustomEntryType(name, reqFields, optFields);
-	} catch (IndexOutOfRangeException ex) {
+	} catch (IndexOutOfRangeException) {
 	    return null;
 	}
 
