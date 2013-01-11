@@ -7,8 +7,8 @@
     <ProjectGuid>{E9BD29D0-12E3-4849-AFE0-BD8387EFE20A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NETRef2</RootNamespace>
-    <AssemblyName>NETRef2</AssemblyName>
+    <RootNamespace>NETRef_v35</RootNamespace>
+    <AssemblyName>NETRef_v35</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

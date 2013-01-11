@@ -123,7 +123,7 @@ public class FieldContentParser {
             }
             else if (c == ' ') {
                 //if ((content.Length>i+2) && (content[1]==' ')) {
-                if ((i>0) && (content[1]==' ')) {
+                if ((i>0) && (content[i-1]==' ')) {
                     // We have two spaces in a row. Don't include this one.
                 	
                 	// Yes, of course we have, but in Filenames it is nessary to have all spaces. :-)

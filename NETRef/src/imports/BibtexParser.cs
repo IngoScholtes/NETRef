@@ -426,6 +426,7 @@ public class BibtexParser : IDisposable {
 		BibtexEntry result = new BibtexEntry(id, tp);
 		SkipWhitespace();
 		Consume('{', '(');
+        SkipWhitespace();
         int c = Peek();
         if ((c != '\n') && (c != '\r'))
             SkipWhitespace();
